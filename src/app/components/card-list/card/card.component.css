@@ -1,0 +1,43 @@
+
+ #card-icon{
+  margin-left: 110px;
+  margin-bottom: 10px;
+}
+div.card{
+  margin: 10px 10px;
+  width: 275px;
+  height: 150px;
+}
+.published{
+  border-top: 5px solid #02CA98;
+}
+.published:hover{
+color: #02CA98;
+border: 2px solid #02CA98;
+border-top: 5px solid #02CA98;
+}
+.expired{
+  border-top: 5px solid grey;
+}
+.expired:hover{
+  color: grey;
+  border: 2px solid grey;
+  border-top: 5px solid grey;
+
+}
+div.card-title{
+  margin-left: 69px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+#period-date{
+  margin-left: 38px;
+}
+
+div.dropdown button{
+  margin-left: 57px;
+  border:none
+
+}
+

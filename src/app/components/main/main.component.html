@@ -1,0 +1,34 @@
+<!-- alert -->
+<div class="container my-3">
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <b><i class="fas fa-info-circle"></i> Information : </b> Select Template To
+    Continue
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <mat-toolbar>
+    <mat-tab-group mat-align-tabs="start" dynamicHeight>
+      <mat-tab label="Published" id="txt-color"></mat-tab>
+      <mat-tab label="Expired"></mat-tab>
+      <mat-tab label="Closed"></mat-tab>
+      <mat-tab label="All survey"></mat-tab>
+    </mat-tab-group>
+
+    <div class="spacer"></div>
+
+    <button class="btn btn-secondary mb-4" disabled>Go to Dashboard</button>
+    <div class="input-group mb-4 mx-4" [ngStyle]="{ width: '200px' }">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search survey name"
+      />
+    </div>
+    <button type="button" class="btn btn-outline-success mb-4">Filter</button>
+  </mat-toolbar>
+</div>

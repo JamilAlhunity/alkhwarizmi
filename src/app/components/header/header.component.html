@@ -1,0 +1,40 @@
+<!-- NavBar -->
+<mat-toolbar class="mat-elevation-z6 bg-light text-dark">
+  <h2><i class="fas fa-leaf"></i>Al-KHWARIZMI</h2>
+
+  <div class="spacer"></div>
+
+  <div class="res-circle">
+    <div class="circle-txt">{{ initials }}</div>
+  </div>
+
+  <button
+    mat-button
+    [matMenuTriggerFor]="menu"
+    [ngStyle]="{ 'font-weight': '300' }"
+  >
+    {{ username }}
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Setting</button>
+    <button mat-menu-item>LogOut</button>
+  </mat-menu>
+
+  <span class="text-muted"> | </span>
+  <a mat-button class="text-muted" disabled>العربيه</a>
+</mat-toolbar>
+
+<!-- End Of nav  -->
+
+<!-- Use this code when you get the logoImg -->
+
+<!-- <a class="navbar-brand" href="/">
+    <div class="logo-image">
+      <img
+        src="C:\Users\DELL\OneDrive\Desktop\logo.jpg"
+        class="img-fluid"
+        alt="img-logo"
+      />
+    </div>
+  </a> -->

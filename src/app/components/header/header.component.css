@@ -1,0 +1,25 @@
+.res-circle {
+  height: 37px;
+  width: 37px;
+  border-radius: 50%;
+  background: lightgreen;
+  line-height:2;
+  position: relative;
+}
+
+.circle-txt {
+  color:green;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+}
+
+/*
+.logo-image img{
+  width: 46px;
+  height: 46px;
+  border-radius: 5%;
+  overflow: hidden;
+  margin-top: -6px;
+} */
