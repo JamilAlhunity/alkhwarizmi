@@ -1,11 +1,39 @@
-
+/*
 .mat-toolbar,
 .mat-tab-link,
  #txt-color {
 background-color: white !important;
-color: black !important;
-}
+// color: black !important;
+} */
+/* .Access{
 
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+
+  }
+
+  .Access:hover {
+    background-color: #0f12bc;
+    color: white;
+  } */
+
+
+  .theme-toggle {
+    position: relative;
+    /* margin-left: 120px; */
+    margin-top: 9px;
+    z-index: 100;
+}
 
 
 

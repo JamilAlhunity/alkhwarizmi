@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>
+  {{ surveyNameCondition }}
+</h1>
+<div mat-dialog-content>
+  <p>{{ "Data To Send Back" | translate }}</p>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ "Data" | translate }}:</mat-label>
+    <input matInput [(ngModel)]="surveyNameCondition" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="surveyNameCondition">
+    {{ "No Thanks" | translate }}
+  </button>
+  <button mat-button [mat-dialog-close]="surveyNameCondition" cdkFocusInitial>
+    {{ "Ok" | translate }}
+  </button>
+</div>
+<div class="spaccer"></div>

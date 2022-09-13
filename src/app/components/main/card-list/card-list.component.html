@@ -1,0 +1,15 @@
+<div
+  class="container"
+  [ngClass]="surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'"
+>
+  <div class="row my-3">
+    <div class="col-md-3" *ngFor="let survey of surveys">
+      <app-card
+        [survey]="survey"
+        (cardSelectedId)="($event.id)"
+        [selectedCardId]="selectedId!"
+        (click)="cardSelectedId(survey.TEMPLATE_ID!)"
+      ></app-card>
+    </div>
+  </div>
+</div>

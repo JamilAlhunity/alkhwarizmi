@@ -1,8 +1,10 @@
-<!-- alert -->
+<!-- start alert -->
 <div class="container my-3">
   <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <b><i class="fas fa-info-circle"></i> Information : </b> Select Template To
-    Continue
+    <strong i18n
+      ><em class="fas fa-info-circle"></em>
+      {{ "Information: Select Template To Continue" | translate }}</strong
+    >
     <button
       type="button"
       class="btn-close"
@@ -10,25 +12,134 @@
       aria-label="Close"
     ></button>
   </div>
+  <!-- end alert -->
 
-  <mat-toolbar>
-    <mat-tab-group mat-align-tabs="start" dynamicHeight>
-      <mat-tab label="Published" id="txt-color"></mat-tab>
-      <mat-tab label="Expired"></mat-tab>
-      <mat-tab label="Closed"></mat-tab>
-      <mat-tab label="All survey"></mat-tab>
+  <!-- start tabs -->
+  <mat-toolbar
+    [ngClass]="
+      surveyService.isDark ? 'bg-dark text-white' : 'bg-white text-dark'
+    "
+  >
+    <mat-tab-group
+      mat-align-tabs="start"
+      dynamicHeight
+      (selectedTabChange)="onTabChange($event)"
+    >
+      <mat-tab
+        i18n
+        label="{{ tab | translate }}"
+        id=""
+        *ngFor="let tab of tabLabels; let index = index"
+      ></mat-tab>
     </mat-tab-group>
-
+    <!-- end tabs -->
     <div class="spacer"></div>
 
-    <button class="btn btn-secondary mb-4" disabled>Go to Dashboard</button>
+    <!-- start dialog -->
+    <ul [ngStyle]="{ 'list-style': 'none', 'padding-bottom': '10px' }">
+      <li>
+        <button
+          mat-raised-button
+          i18n
+          (click)="openDialog()"
+          [ngClass]="
+            selectedCardId
+              ? 'active btn btn-success mt-2'
+              : 'disabled btn btn-secondary mt-2'
+          "
+        >
+          {{ "Go To Dashboard" | translate }}
+        </button>
+      </li>
+      <li *ngIf="dataToSend" [ngStyle]="{ 'font-size': '10px' }">
+        {{ "Data From Dialog:" | translate }} <em>{{ dataToSend }}</em>
+      </li>
+    </ul>
+    <!-- End Dialog -->
+    <!-- start input search -->
     <div class="input-group mb-4 mx-4" [ngStyle]="{ width: '200px' }">
       <input
+        i18n
         type="text"
         class="form-control"
-        placeholder="Search survey name"
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+        placeholder="{{ 'Search survey name' | translate }}"
+        [(ngModel)]="inputValue"
+        (keyup)="searchFilter(inputValue)"
       />
     </div>
-    <button type="button" class="btn btn-outline-success mb-4">Filter</button>
+    <!-- end input search -->
+    <button
+      i18n
+      type="button"
+      class="btn btn-outline-success mb-4"
+      (click)="openFilter = !openFilter"
+    >
+      {{ "Filter" | translate }}
+    </button>
   </mat-toolbar>
+  <mat-button-toggle-group #group="matButtonToggleGroup">
+    <mat-button-toggle
+      [ngClass]="
+        surveyService.isDark
+          ? 'bg-dark text-light checked'
+          : 'bg-white text-dark'
+      "
+      aria-label="gridView"
+      (click)="displayView = !displayView"
+    >
+      <mat-icon>format_align_left</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle
+      [ngClass]="
+        surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+      "
+      aria-label="cardView"
+      (click)="displayView = !displayView"
+    >
+      <mat-icon>format_align_center</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <!-- theme toggle -->
+  <section class="d-flex">
+    <div
+      class="px-2"
+      [ngClass]="surveyService.isDark ? 'text-light' : ' text-dark'"
+    >
+      <em class="fas fa-sun"></em>
+      <mat-slide-toggle
+        class="mr-8"
+        (toggleChange)="switchTheme()"
+        [checked]="surveyService.isDark"
+      >
+      </mat-slide-toggle>
+      <em class="fas fa-moon fa-sm"></em>
+    </div>
+    <!-- end theme toggle -->
+    <!-- start text size toggle -->
+    <mat-button
+      class="btn btn- btn-md mb-3"
+      [ngClass]="surveyService.isDark ? ' text-light' : ' text-dark'"
+      (click)="changeTextSize()"
+      ><em class="fas fa-text-height"></em
+    ></mat-button>
+  </section>
+  <!-- end text size toggle -->
+  <app-filter
+    [ngStyle]="{ 'margin-left': '1000px' }"
+    [hidden]="openFilter"
+  ></app-filter>
 </div>
+
+<app-card-list
+  (selectedSurveyId)="selectedSurveyId($event.id)"
+  [hidden]="!displayView"
+  [ngClass]="surveyService.isDark ? 'bg-dark text-light' : 'bg-light text-dark'"
+>
+</app-card-list>
+<app-mat-table
+  (selectedRowId)="selectedSurveyId($event.id)"
+  [hidden]="displayView"
+></app-mat-table>

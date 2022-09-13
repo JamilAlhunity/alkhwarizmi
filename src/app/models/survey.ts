@@ -1,5 +1,6 @@
-export interface Survey{
+export interface Survey {
   toArray(): any;
+  // isEdited: boolean;
   TEMPLATE_ID?: number;
   TemplateName?: string;
   TemplateNameAr?: string;
@@ -12,6 +13,6 @@ export interface Survey{
   SURVEY_STATUS_AR?: string;
   SURVEY_STATUS_EN?: string;
   SurveyPeriods: string;
-  START_DATE?: any;
-  END_DATE?: any;
+  START_DATE?: string;
+  END_DATE?: string;
 };

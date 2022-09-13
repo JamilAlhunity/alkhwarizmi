@@ -1,0 +1,165 @@
+<div class="mat-elevation-z8 container">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    [ngClass]="
+      surveyService.isDark ? 'bg-dark text-muted' : 'bg-white text-dark'
+    "
+  >
+    <!-- SurveyName Column -->
+    <ng-container matColumnDef="SurveyName" id="surveyName">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [ngClass]="surveyService.isDark ? 'text-light' : 'text-dark'"
+      >
+        {{ "Survey Name" | translate }}
+      </th>
+      <td
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+        mat-cell
+        *matCellDef="let survey"
+        [ngSwitch]="survey.SURVEY_STATUS_EN"
+      >
+        <em
+          class="far fa-check-circle fa text-muted"
+          *ngSwitchCase="'Published'"
+        ></em>
+        <em
+          class="far fa-hourglass fa text-muted"
+          *ngSwitchCase="'Expired'"
+        ></em>
+        <em class="fas fa-lock fa text-muted" *ngSwitchCase="'Closed'"></em>
+        <span *ngIf="surveyService.language === 'en'">{{
+          survey.SurveyNameEn
+        }}</span>
+        <span *ngIf="surveyService.language === 'ar'">{{
+          survey.SurveyNameAr
+        }}</span>
+      </td>
+    </ng-container>
+
+    <!-- StartDate Column -->
+    <ng-container matColumnDef="START_DATE" id="From">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+      >
+        {{ "From" | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let survey"
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+      >
+        <ng-container *ngIf="survey.SurveyPeriods.length === 1">
+          {{ survey.SurveyPeriods[0]["START_DATE"] | date: "dd/MM/yyyy" }}
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- EndDate Column -->
+    <ng-container matColumnDef="END_DATE" id="To">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+      >
+        {{ "To" | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let survey"
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+      >
+        <ng-container *ngIf="survey.SurveyPeriods.length === 1">
+          {{ survey.SurveyPeriods[0]["END_DATE"] | date: "dd/MM/yyyy" }}
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- MultiDates Column -->
+    <ng-container matColumnDef="SurveyPeriods" id="Period">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [ngClass]="
+          surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+        "
+      >
+        {{ "Period" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let survey">
+        <section *ngIf="survey.SurveyPeriods.length > 1">
+          <div class="dropdown">
+            <button
+              class="btn btn-sm dropdown-toggle text-muted"
+              [ngClass]="
+                surveyService.isDark
+                  ? 'btn-dark text-light'
+                  : 'btn-white text-dark'
+              "
+              type="button"
+              id="periodDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ "Select Period" | translate }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="periodDropdown">
+              <li *ngFor="let selectDate of survey.SurveyPeriods">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  [ngClass]="
+                    surveyService.isDark
+                      ? 'bg-dark text-light'
+                      : 'bg-white text-dark'
+                  "
+                >
+                  {{ selectDate["START_DATE"] | date: "dd/MM/yyyy" }} -
+                  {{ selectDate["END_DATE"] | date: "dd/MM/yyyy" }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let survey; columns: displayedColumns"
+      (click)="onRowSelected(survey.TEMPLATE_ID)"
+      id="rowHover"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [length]="20"
+    [pageSize]="12"
+    aria-label="Select surveys"
+    [ngClass]="
+      surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+    "
+  >
+  </mat-paginator>
+</div>

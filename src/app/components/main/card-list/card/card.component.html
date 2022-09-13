@@ -1,0 +1,93 @@
+<div
+  (click)="onCardSelected()"
+  class="px-2"
+  [ngClass]="{
+    published: survey.SURVEY_STATUS_EN === 'Published',
+    expired: survey.SURVEY_STATUS_EN === 'Expired',
+    closed: survey.SURVEY_STATUS_EN === 'Closed',
+    selectedCardPublished:
+      selectedCardId === survey.TEMPLATE_ID &&
+      survey.SURVEY_STATUS_EN === 'Published',
+    SelectCardExpired:
+      selectedCardId === survey.TEMPLATE_ID &&
+      survey.SURVEY_STATUS_EN === 'Expired',
+    selectCardClosed:
+      selectedCardId === survey.TEMPLATE_ID &&
+      survey.SURVEY_STATUS_EN === 'Closed',
+    expireDisabled:
+      survey.SurveyPeriods.length > 1 && survey.SURVEY_STATUS_EN === 'Expired'
+  }"
+>
+  <div class="card-body">
+    <div
+      class="card-subTitle"
+      id="card-icon"
+      [ngSwitch]="survey.SURVEY_STATUS_EN"
+    >
+      <em class="far fa-check-circle fa-2x" *ngSwitchCase="'Published'"></em>
+      <em class="far fa-hourglass fa-2x" *ngSwitchCase="'Expired'"></em>
+      <em class="fas fa-lock fa-2x" *ngSwitchCase="'Closed'"></em>
+    </div>
+
+    <div
+      class="card-title"
+      title="{{
+        surveyService.language === 'en'
+          ? survey.SurveyNameEn
+          : survey.SurveyNameAr
+      }}"
+    >
+      {{
+        surveyService.language === "en"
+          ? survey.SurveyNameEn
+          : survey.SurveyNameAr
+      }}
+    </div>
+    <hr />
+
+    <div class="card-text">
+      <section *ngIf="survey.SurveyPeriods.length > 1; else elseBlock">
+        <div class="dropdown">
+          <button
+            [ngClass]="
+              surveyService.isDark ? 'bg-dark text-light' : 'bg-white text-dark'
+            "
+            class="btn btn-white btn-sm dropdown-toggle"
+            type="button"
+            id="periodDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            [ngClass]="{
+              disabled: survey.SURVEY_STATUS_EN === 'Expired'
+            }"
+          >
+            {{ "Select Period" | translate }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="periodDropdown">
+            <li *ngFor="let selectDate of survey.SurveyPeriods" i18n>
+              <a
+                class="dropdown-item"
+                href="#"
+                [ngClass]="
+                  surveyService.isDark
+                    ? 'bg-dark text-light'
+                    : 'bg-white text-dark'
+                "
+              >
+                {{ selectDate["START_DATE"] | date: "dd/MM/yyyy" }}
+                -
+                {{ selectDate["END_DATE"] | date: "dd/MM/yyyy" }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <ng-template #elseBlock>
+        <p class="text-muted" id="period-date" i18n>
+          {{ survey.SurveyPeriods[0]["START_DATE"] | date: "dd/MM/yyyy" }} -
+          {{ survey.SurveyPeriods[0]["END_DATE"] | date: "dd/MM/yyyy" }}
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</div>

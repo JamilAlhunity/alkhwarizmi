@@ -1,5 +1,7 @@
-<app-header></app-header>
+<span [class.alternative]="surveyService.isDark">
+  <app-header></app-header>
 
-<app-main></app-main>
+  <app-main></app-main>
 
-<app-card-list></app-card-list>
+  <app-users></app-users>
+</span>

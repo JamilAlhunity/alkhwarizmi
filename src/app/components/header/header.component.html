@@ -1,11 +1,13 @@
 <!-- NavBar -->
-<mat-toolbar class="mat-elevation-z6 bg-light text-dark">
-  <h2><i class="fas fa-leaf"></i>Al-KHWARIZMI</h2>
-
+<mat-toolbar
+  class="mat-elevation-z6"
+  [ngClass]="surveyService.isDark ? 'bg-dark text-light' : 'bg-light text-dark'"
+>
+  <h2 i18n><em class="fas fa-leaf"></em>{{ "Al-khwarizmi" | translate }}</h2>
   <div class="spacer"></div>
 
   <div class="res-circle">
-    <div class="circle-txt">{{ initials }}</div>
+    <div class="circle-txt" i18n>{{ initials }}</div>
   </div>
 
   <button
@@ -13,28 +15,30 @@
     [matMenuTriggerFor]="menu"
     [ngStyle]="{ 'font-weight': '300' }"
   >
-    {{ username }}
-    <i class="fas fa-caret-down"></i>
+    {{ username | translate }}
+    <em class="fas fa-caret-down"></em>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Setting</button>
-    <button mat-menu-item>LogOut</button>
+    <button mat-menu-item i18n>{{ "Setting" | translate }}</button>
+    <button mat-menu-item i18n>{{ "LogOut" | translate }}</button>
   </mat-menu>
 
   <span class="text-muted"> | </span>
-  <a mat-button class="text-muted" disabled>العربيه</a>
+  <span>
+    <a href="#" mat-button (click)="changeLang('ar')" class="text-muted"
+      >العربية</a
+    >
+    <a href="#" mat-button (click)="changeLang('en')" class="text-muted">EN</a>
+  </span>
 </mat-toolbar>
 
 <!-- End Of nav  -->
 
 <!-- Use this code when you get the logoImg -->
 
-<!-- <a class="navbar-brand" href="/">
-    <div class="logo-image">
-      <img
-        src="C:\Users\DELL\OneDrive\Desktop\logo.jpg"
-        class="img-fluid"
-        alt="img-logo"
-      />
-    </div>
-  </a> -->
+<!-- <a href="http://www.realsoft-me.com/index.php/en/al-khawarizmi">
+  <img
+    alt="Al-khawarizmi"
+    src="https://drive.google.com/uc?export=view&id=1bk5SrGbGchv3gXWWDLEL24_vOwfYOHPI"
+  />
+</a> -->
